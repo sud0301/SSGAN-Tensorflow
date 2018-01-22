@@ -131,9 +131,9 @@ def download_cifar10(download_path):
 
     # cifar file loader
     def unpickle(file):
-        import cPickle
+        import pickle
         with open(file, 'rb') as fo:
-            dict = cPickle.load(fo)
+            dict = pickle.load(fo, encoding='latin1')	
         return dict
 
     if check_file(data_dir):

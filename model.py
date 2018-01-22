@@ -8,7 +8,7 @@ import tensorflow.contrib.slim as slim
 
 from ops import conv2d, deconv2d, huber_loss
 from util import log
-
+import numpy as np
 
 class Model(object):
 
@@ -120,7 +120,7 @@ class Model(object):
                 d_3 = slim.dropout(d_3, keep_prob=0.5, is_training=is_train, scope='d_3_conv/')
                 if not reuse: log.info('{} {}'.format(scope.name, d_3))
                 d_4 = slim.fully_connected(
-                    tf.reshape(d_3, [self.batch_size, -1]), n+1, scope='d_4_fc', activation_fn=None)
+                    tf.reshape(d_3, [self.batch_size, -1]), np.asscalar(n+1), scope='d_4_fc', activation_fn=None)
                 if not reuse: log.info('{} {}'.format(scope.name, d_4))
                 output = d_4
                 assert output.get_shape().as_list() == [self.batch_size, n+1]
